@@ -30,9 +30,16 @@ jsondata = requests.get(address_api).json()
 
 print("\nWeather conditions in 20 minutes:")
 
+
 for key in jsondata["currently"]:
     if key in INTERESTED_ATTRIBUTES:
-        print(key + ": " + str(jsondata["currently"][key]))
+        #formats time value into HH:MM:SS from just seconds.
+        if key == "time":
+            seconds = int(str(jsondata["currently"][key]))
+            time1 = time.strftime("%H:%M:%S", time.gmtime(seconds))
+            print(key + ": " + time1)
+    #prints all data
+    print(key + ": " + str(jsondata["currently"][key]))
 
 #print(ts)
 
